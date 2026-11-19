@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import styles from './Header.module.css';
 import logo from '../logo/logo.png';
 import { usePlayer } from '../hooks/usePlayer';
+import { isChristmasSeason } from '../christmas/season';
 
 export default function Header({ manualTheme, setManualTheme }) {
   const { audioRef } = usePlayer();
@@ -107,13 +108,15 @@ export default function Header({ manualTheme, setManualTheme }) {
         </div>
       </div>
       <nav className={styles.navRight}>
-        <button 
-          onClick={cycleTheme} 
-          className={styles.themeToggle}
-          title="Alternar Tema do Dia"
-        >
-          {getThemeLabel()}
-        </button>
+        {!isChristmasSeason() && (
+          <button 
+            onClick={cycleTheme} 
+            className={styles.themeToggle}
+            title="Alternar Tema do Dia"
+          >
+            {getThemeLabel()}
+          </button>
+        )}
         <NavLink
           to="/"
           end
