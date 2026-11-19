@@ -3,7 +3,7 @@
 Código-fonte restaurado do site ao vivo em 19/11/2026 (HAR + backups). Não é uma reescrita: o build local reproduz o publicado com JS +0,09% e CSS +0,83%, DOM idêntico.
 
 ## Deploy na Vercel
-2
+
 1. Criar um repositório **privado** e enviar esta pasta para ele.
 2. Vercel → Add New → Project → importar o repositório.
 3. Framework: `Vite`; Install Command: `npm install`; Build Command: `npm run build`; Output Directory: `dist`; Node: `20.x`.
