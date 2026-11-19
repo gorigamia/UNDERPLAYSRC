@@ -31,11 +31,13 @@ npm run dev
 
 ## Variáveis de ambiente
 
-Todas são opcionais: o config público do Firebase já está embutido como fallback em `src/firebase.js`. Copie `.env.example` para `.env` apenas se quiser sobrescrever algo. **Nunca commite `.env`** — o backup original continha chaves reais.
+As configurações do Firebase são lidas **apenas** de variáveis `VITE_*` em `src/firebase.js`, sem valores embutidos no código. Defina-as em Vercel → Project → Settings → Environment Variables antes do deploy; para rodar localmente, copie `.env.example` para `.env`. **Nunca commite `.env`**.
 
 - `VITE_FIREBASE_API_KEY`, `VITE_FIREBASE_AUTH_DOMAIN`, `VITE_FIREBASE_DATABASE_URL`, `VITE_FIREBASE_PROJECT_ID`, `VITE_FIREBASE_STORAGE_BUCKET`, `VITE_FIREBASE_MESSAGING_SENDER_ID`, `VITE_FIREBASE_APP_ID`
 - `VITE_IGDB_CLIENT_ID`, `VITE_IGDB_ACCESS_TOKEN` (capas de jogos; opcional)
 - `VITE_LASTFM_KEY` existia no `.env` antigo, mas o código não a utiliza
+
+> O config do Firebase esteve exposto em commits antigos deste repositório e no bundle ao vivo. Revogue/rotacione a chave no Console do Firebase e use a nova em `VITE_FIREBASE_API_KEY`. O alerta de secret scanning do GitHub **não fecha automaticamente** ao remover o código: feche-o em Security → Secret scanning (Close as → revoked).
 
 ## Arquivos incluídos
 
