@@ -14,7 +14,7 @@
       "destination": "http://2.25.141.39/status-json.xsl"
     },
     {
-      "source": "/(.*)",
+      "source": "/((?!api/).*)",
       "destination": "/index.html"
     }
   ]
