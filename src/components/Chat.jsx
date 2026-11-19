@@ -201,6 +201,12 @@ export default function Chat() {
   const listRef = useRef(null);
 
   useEffect(() => {
+    if (!db) {
+      setErrorMsg('Chat indisponível: configuração do Firebase ausente.');
+      setRawConnected(false);
+      return;
+    }
+
     ensureAuth().catch(() => {});
 
     const connectedRef = ref(db, '.info/connected');
@@ -283,6 +289,10 @@ export default function Chat() {
       }
 
       try {
+        if (!db) {
+          setErrorMsg('Chat indisponível: configuração do Firebase ausente.');
+          return;
+        }
         const user = await ensureAuth().catch(() => null);
         if (!user) {
           setErrorMsg('Falha na autenticação. Recarregue a página (F5) e tente novamente.');

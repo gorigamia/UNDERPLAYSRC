@@ -12,18 +12,32 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID
 };
 
-const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
-export const db = getDatabase(app, firebaseConfig.databaseURL);
-export const auth = getAuth(app);
+export const isFirebaseConfigured = Boolean(
+  firebaseConfig.apiKey && firebaseConfig.authDomain && firebaseConfig.databaseURL
+);
+
+let app = null;
+let database = null;
+let firebaseAuth = null;
+
+if (isFirebaseConfigured) {
+  app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+  database = getDatabase(app, firebaseConfig.databaseURL);
+  firebaseAuth = getAuth(app);
+}
+
+export const db = database;
+export const auth = firebaseAuth;
 
 let authPromise = null;
 
 export async function ensureAuth() {
-  if (auth.currentUser) {
-    return auth.currentUser;
+  if (!firebaseAuth) return null;
+  if (firebaseAuth.currentUser) {
+    return firebaseAuth.currentUser;
   }
   if (!authPromise) {
-    authPromise = signInAnonymously(auth)
+    authPromise = signInAnonymously(firebaseAuth)
       .then((cred) => cred.user)
       .catch((err) => {
         console.warn("Autenticação anônima Firebase:", err.message || err);
