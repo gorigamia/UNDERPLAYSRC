@@ -1,0 +1,21 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "rewrites": [
+    {
+      "source": "/listen/:path*",
+      "destination": "http://2.25.141.39/listen/:path*"
+    },
+    {
+      "source": "/hls/:path*",
+      "destination": "http://2.25.141.39/hls/:path*"
+    },
+    {
+      "source": "/status-json.xsl",
+      "destination": "http://2.25.141.39/status-json.xsl"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}

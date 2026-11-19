@@ -1,0 +1,106 @@
+.player {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  width: 100%;
+  max-width: 480px;
+  text-align: center;
+}
+
+.info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.badgeRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.badge {
+  background: var(--blue-mid);
+  color: var(--blue-pale);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 6px 20px;
+  border-radius: 100px;
+  transition: background 0.3s;
+}
+
+.badgeLive {
+  background: #e62020; /* Vermelho forte oficial de "Ao Vivo" */
+  color: #ffffff; /* Letra sempre branca para contraste máximo */
+  box-shadow: 0 0 12px rgba(230, 32, 32, 0.4);
+  animation: pulseLive 2s infinite alternate;
+}
+
+@keyframes pulseLive {
+  0% { filter: brightness(1); }
+  100% { filter: brightness(1.25); box-shadow: 0 0 20px rgba(230, 32, 32, 0.7); }
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.nowPlaying {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  max-width: 100%;
+  animation: textPop 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+@keyframes textPop {
+  0% { transform: translateY(10px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+.artist {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--blue-mid);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(20px, 2.6vw, 26px);
+  font-weight: 700;
+  color: var(--blue-deep);
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 768px) {
+  .player {
+    gap: 24px;
+  }
+
+  .title {
+    font-size: clamp(17px, 5vw, 22px);
+  }
+}

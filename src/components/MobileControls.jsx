@@ -1,0 +1,9 @@
+import {useState} from 'react';
+export default function MobileControls({isPlaying,isFavorited,volume,onTogglePlay,onToggleFavorite,onVolumeChange}) {
+  const [lastVolume,setLastVolume]=useState(70);
+  const [timer,setTimer]=useState(0);
+  function mute(){if(volume){setLastVolume(volume);onVolumeChange(0);}else onVolumeChange(lastVolume || 70);}
+  function sleep(e){const mins=Number(e.target.value);setTimer(mins);window.UnderplayNative?.sleep(mins);}
+  async function share(){if(window.UnderplayNative)window.UnderplayNative.share();else if(navigator.share)try{await navigator.share({title:'Underplay Radio',url:'https://underplay.com.br/radio'});}catch{} }
+  return <div className="radio-transport"><div className="transport-buttons"><button onClick={onToggleFavorite} aria-label={isFavorited?'Desfavoritar':'Favoritar'} aria-pressed={isFavorited}>{isFavorited?'♥':'♡'}</button><button className="main-play" onClick={onTogglePlay} aria-label={isPlaying?'Pausar':'Tocar'}>{isPlaying?'Ⅱ':'▶'}</button><button onClick={share} aria-label="Compartilhar"><svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" strokeWidth="1.6"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8 10l7-4M8 14l7 4"/></svg></button></div><div className="volume-strip"><button onClick={mute} aria-label={volume?'Silenciar':'Ativar som'}>{volume?'◖))':'◖×'}</button><input type="range" min="0" max="100" value={volume} onChange={e=>onVolumeChange(Number(e.target.value))} aria-label="Volume"/><span>{volume}%</span></div><div className="mobile-tools"><label><select aria-label="Timer para dormir" value={timer} onChange={sleep}><option value="0">☾ Sem timer</option>{[15,30,45,60,90].map(n=><option value={n} key={n}>☾ Parar em {n} min</option>)}</select></label><button onClick={()=>window.dispatchEvent(new Event('underplay-scope-mode'))}>〰 Visualizador</button></div></div>;
+}

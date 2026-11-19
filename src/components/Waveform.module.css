@@ -1,0 +1,40 @@
+.waveform {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 3px;
+  width: 100%;
+  height: 40px;
+  margin-top: 4px;
+  overflow: hidden;
+}
+
+.bar {
+  width: 3px;
+  height: 36px;
+  border-radius: 2px;
+  background: var(--blue-mid);
+  opacity: 0.55;
+  flex-shrink: 0;
+  transform-origin: bottom;
+  will-change: transform;
+  transform: scaleY(0.15);
+}
+
+.playing .bar {
+  opacity: 0.75;
+  transition: transform 0.04s linear;
+}
+
+.idle .bar {
+  animation: idleWave 1.8s ease-in-out infinite alternate;
+}
+
+@keyframes idleWave {
+  0% { transform: scaleY(0.15); opacity: 0.3; }
+  to { transform: scaleY(0.55); opacity: 0.8; }
+}
+
+@media (max-width: 768px) {
+  .bar:nth-child(n+26) { display: none; }
+}

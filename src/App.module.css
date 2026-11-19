@@ -1,0 +1,64 @@
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.main {
+  width: 100%;
+  min-width: 0;
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Centraliza tudo no meio da tela */
+  flex-direction: row; /* Coloca os itens lado a lado (horizontal) */
+  gap: 120px; /* Cria um espaço de 120px entre o Player e o Chat */
+  padding: 32px 64px;
+  max-width: 1400px; /* Impede que eles se afastem demais em telas gigantes */
+  margin: 0 auto; /* Mantém tudo no meio da página */
+  background: radial-gradient(ellipse 900px 560px at 50% 38%, rgba(255,255,255,0.03) 0%, transparent 70%);
+  animation: pageEnter 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.contact {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: pageEnter 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+@keyframes pageEnter {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.homeRow {
+  min-width: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 56px;
+  width: 100%;
+}
+
+@media (max-width: 900px) {
+  .homeRow {
+    flex-direction: column;
+    align-items: center;
+    gap: 36px;
+  }
+}
+
+.schedule {
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .main {
+    padding: 24px 24px 40px;
+  }
+}

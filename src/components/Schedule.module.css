@@ -1,0 +1,163 @@
+.wrapper {
+  position: fixed;
+  bottom: 90px;
+  right: 32px;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  background: var(--blue-pale);
+  border: 1px solid rgba(24, 95, 165, 0.18);
+  border-radius: 16px;
+  box-shadow: 0 16px 32px -16px rgba(4, 44, 83, 0.25);
+  min-width: 280px;
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--blue-mid);
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background 0.2s, color 0.2s;
+  margin-right: -4px;
+}
+
+.closeBtn:hover {
+  background: rgba(24, 95, 165, 0.1);
+  color: var(--blue-deep);
+}
+
+.dayLabel {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--blue-mid);
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 16px;
+  border: 1px solid rgba(24, 95, 165, 0.2);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.3);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.pulse {
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+.time {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--blue-deep);
+  min-width: 52px;
+}
+
+.info {
+  flex: 1;
+}
+
+.title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--blue-deep);
+  margin-bottom: 2px;
+}
+
+.dj {
+  font-size: 11px;
+  color: var(--blue-mid);
+  letter-spacing: 0.05em;
+}
+
+.dots {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
+}
+
+.dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(24, 95, 165, 0.25);
+  transition: background 0.3s;
+}
+
+.dotActive {
+  background: var(--blue-mid);
+}
+
+.toggleBtn {
+  position: fixed;
+  bottom: 90px;
+  right: 32px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--blue-pale);
+  border: 1px solid rgba(24, 95, 165, 0.18);
+  box-shadow: 0 8px 16px -8px rgba(4, 44, 83, 0.2);
+  padding: 10px 16px;
+  border-radius: 100px;
+  color: var(--blue-mid);
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.toggleBtn:hover {
+  background: #fff;
+  color: var(--blue-deep);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px -12px rgba(4, 44, 83, 0.3);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 600px) {
+  .wrapper {
+    bottom: 16px;
+    right: 16px;
+    left: 16px;
+    min-width: unset;
+  }
+  .toggleBtn {
+    bottom: 16px;
+    right: 16px;
+  }
+}

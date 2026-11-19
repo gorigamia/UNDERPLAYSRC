@@ -1,0 +1,117 @@
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 22px;
+}
+
+.iconBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  color: var(--blue-mid);
+  transition: color 0.15s, transform 0.15s;
+  line-height: 1;
+  padding: 0;
+  text-decoration: none;
+}
+
+.iconBtn:hover { color: var(--blue-deep); transform: scale(1.15); }
+
+.favorited { color: var(--blue-mid) !important; }
+
+.playMain {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--blue-mid);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.playMain:hover { background: var(--blue-deep); transform: scale(1.05); }
+.playMain:active { transform: scale(0.97); }
+
+.volumeWrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px;
+  background: var(--theme-accent-soft);
+  border-radius: 999px;
+}
+
+.volIcon {
+  color: var(--blue-mid);
+  flex-shrink: 0;
+}
+
+.volValue {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--blue-mid);
+  font-variant-numeric: tabular-nums;
+  min-width: 18px;
+  text-align: right;
+}
+
+.volSlider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 84px;
+  height: 4px;
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+}
+
+.volSlider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--blue-deep);
+  border: 2px solid var(--blue-pale);
+  box-shadow: 0 1px 3px rgba(4, 44, 83, 0.4);
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+
+.volSlider::-webkit-slider-thumb:hover { transform: scale(1.15); }
+
+.volSlider::-moz-range-track {
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(24, 95, 165, 0.18);
+}
+
+.volSlider::-moz-range-progress {
+  height: 4px;
+  border-radius: 2px;
+  background: var(--blue-mid);
+}
+
+.volSlider::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--blue-deep);
+  border: 2px solid var(--blue-pale);
+  box-shadow: 0 1px 3px rgba(4, 44, 83, 0.4);
+  cursor: pointer;
+}
+
+@media (max-width: 480px) {
+  .volumeWrap {
+    padding: 6px 12px;
+  }
+
+  .volSlider {
+    width: 64px;
+  }
+}

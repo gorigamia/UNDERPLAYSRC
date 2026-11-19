@@ -1,0 +1,30 @@
+.subnav {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 48px;
+}
+
+.center {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--blue-mid);
+}
+
+.right {
+  display: flex;
+  gap: 16px;
+  font-size: 14px;
+  color: var(--blue-deep);
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .subnav {
+    padding: 8px 24px;
+  }
+}
