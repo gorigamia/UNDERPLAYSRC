@@ -4,22 +4,36 @@ import { isChristmasSeason } from './season';
 import SantaSleigh from './SantaSleigh';
 import styles from './ChristmasOverlay.module.css';
 
-const FLAKES = Array.from({ length: 64 }, (_, i) => ({
+// Snow in three depths: far (tiny, sharp, slow), mid, and near (big, out of focus, like light on a lens).
+const FLAKES = Array.from({ length: 70 }, (_, i) => {
+  const depth = i % 7 === 0 ? 'near' : i % 3 === 0 ? 'mid' : 'far';
+  const size = depth === 'near' ? 9 + (i % 4) * 3 : depth === 'mid' ? 3 + (i % 3) : 1.5 + (i % 2);
+  return {
+    id: i,
+    depth,
+    left: `${(i * 37.7) % 100}%`,
+    delay: `${-((i * 1.37) % 24)}s`,
+    duration: `${(depth === 'near' ? 16 : depth === 'mid' ? 13 : 20) + (i % 5) * 1.9}s`,
+    size: `${size}px`,
+    drift: `${((i % 5) - 2) * 14}px`,
+  };
+});
+
+// The string of lights along the top: one bulb at the bottom of each swag.
+const BULBS = ['#ffd27a', '#ff5a6e', '#7ef0c0', '#ffd27a', '#9ad8ff', '#ff5a6e', '#ffd27a', '#7ef0c0'];
+const SWAGS = Array.from({ length: 18 }, (_, i) => ({
   id: i,
-  left: `${(i * 37.7) % 100}%`,
-  delay: `${-((i * 1.37) % 20)}s`,
-  duration: `${9 + (i % 7) * 1.7}s`,
-  size: `${3 + (i % 5) * 1.5}px`,
-  opacity: 0.18 + (i % 4) * 0.08,
+  color: BULBS[i % BULBS.length],
+  delay: `${-(i * 0.37) % 3}s`,
 }));
 
-const STARS = Array.from({ length: 22 }, (_, i) => ({
-  id: i,
-  left: `${(i * 47.3 + 6) % 100}%`,
-  top: `${4 + (i * 13) % 34}%`,
-  size: `${2 + (i % 3)}px`,
-  delay: `${-((i * 0.9) % 4)}s`,
-}));
+// Glass baubles hanging from the top corners.
+const BAUBLES = [
+  { id: 'l1', side: 'left', x: '1.4%', len: 170, size: 30, hue: 'gold', delay: '0s' },
+  { id: 'l2', side: 'left', x: '3.8%', len: 236, size: 18, hue: 'red', delay: '-1.4s' },
+  { id: 'r1', side: 'right', x: '1.4%', len: 210, size: 26, hue: 'red', delay: '-0.8s' },
+  { id: 'r2', side: 'right', x: '3.8%', len: 150, size: 20, hue: 'green', delay: '-2s' },
+];
 
 export default function ChristmasOverlay() {
   const active = isChristmasSeason();
@@ -34,49 +48,65 @@ export default function ChristmasOverlay() {
 
   return (
     <>
-      <div className={styles.forest} aria-hidden="true" />
+      <div className={styles.mist} aria-hidden="true" />
+
       <div className={styles.snow} aria-hidden="true">
         {FLAKES.map((flake) => (
           <span
             key={flake.id}
-            className={styles.flake}
+            className={`${styles.flake} ${styles[flake.depth]}`}
             style={{
               left: flake.left,
               animationDelay: flake.delay,
               animationDuration: flake.duration,
               width: flake.size,
               height: flake.size,
-              opacity: flake.opacity,
+              '--drift': flake.drift,
             }}
           />
         ))}
       </div>
-      <div className={styles.stars} aria-hidden="true">
-        {STARS.map((star) => (
+
+      <SantaSleigh />
+
+      <div className={styles.lights} aria-hidden="true">
+        {SWAGS.map((swag) => (
+          <span key={swag.id} className={styles.swag}>
+            <i className={styles.bulb} style={{ '--bulb': swag.color, animationDelay: swag.delay }} />
+          </span>
+        ))}
+      </div>
+
+      <div className={styles.baubles} aria-hidden="true">
+        {BAUBLES.map((b) => (
           <span
-            key={star.id}
-            className={styles.star}
+            key={b.id}
+            className={`${styles.bauble} ${styles[b.hue]}`}
             style={{
-              left: star.left,
-              top: star.top,
-              width: star.size,
-              height: star.size,
-              animationDelay: star.delay,
+              [b.side]: b.x,
+              '--len': `${b.len}px`,
+              '--size': `${b.size}px`,
+              animationDelay: b.delay,
             }}
-          />
+          >
+            <i />
+          </span>
         ))}
       </div>
-      <div className={styles.santa} aria-hidden="true">
-        <div className={styles.santaInner}>
-          <SantaSleigh />
-        </div>
-      </div>
-      <div className={styles.garland} aria-hidden="true" />
+
       <div className={styles.seal} aria-hidden="true">
-        <span className={styles.bell}>
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9" />
-            <path d="M10 20a2 2 0 0 0 4 0" />
+        <span className={styles.ornament}>
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none">
+            <defs>
+              <radialGradient id="xmasOrnament" cx="35%" cy="35%" r="70%">
+                <stop offset="0" stopColor="#fff3c4" />
+                <stop offset="0.45" stopColor="#e8c35a" />
+                <stop offset="1" stopColor="#8a6418" />
+              </radialGradient>
+            </defs>
+            <rect x="10" y="2.5" width="4" height="3" rx="0.8" fill="#cfd3da" />
+            <circle cx="12" cy="14" r="8" fill="url(#xmasOrnament)" />
+            <path d="M5.2 12.5c2.3 1.3 11.3 1.3 13.6 0" stroke="#fff6d6" strokeOpacity="0.55" strokeWidth="1" />
           </svg>
         </span>
         <span className={styles.sealText}>

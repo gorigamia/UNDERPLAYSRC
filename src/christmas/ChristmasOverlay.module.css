@@ -1,41 +1,51 @@
+/* ==========================================================================
+   Christmas: the site's dark system lit in gold and pine, with a string of
+   lights, glass baubles, snow with depth and a gold sleigh crossing the sky.
+   ========================================================================== */
 :global(html.xmas-on body) {
-  --blue-deep: #f6f2e4;
-  --blue-dark: #1d5038;
-  --blue-mid: #7fc9a0;
-  --blue-vivid: #4fae79;
-  --blue-light: #2f6b4a;
-  --blue-pale: #123526;
-  --bg: #071c14;
-  --theme-surface: rgba(18, 53, 38, 0.86);
-  --theme-surface-deep: rgba(7, 28, 20, 0.95);
-  --theme-border: rgba(232, 195, 90, 0.26);
   --theme-accent: #e8c35a;
-  --theme-accent-soft: rgba(232, 195, 90, 0.2);
-  --theme-muted: rgba(246, 242, 228, 0.74);
-  --theme-on-accent: #142a1c;
-  background-color: #071c14 !important;
-  background-image:
-    radial-gradient(ellipse 75% 55% at 50% 6%, rgba(31, 92, 62, 0.6) 0%, transparent 70%),
-    radial-gradient(ellipse 55% 40% at 8% 92%, rgba(140, 32, 40, 0.24) 0%, transparent 70%),
-    radial-gradient(ellipse 55% 40% at 92% 92%, rgba(140, 32, 40, 0.24) 0%, transparent 70%);
+  --accent-2: #34d399;
+  --theme-on-accent: #10140f;
+  --bg: #07090b;
+  background: #07090b !important;
+}
+
+/* warm light above, cold light to the side, a little red low in the corners */
+:global(html.xmas-on body::before) {
+  background:
+    radial-gradient(900px 520px at 14% -10%, rgba(232, 195, 90, 0.17), transparent 62%),
+    radial-gradient(760px 520px at 90% 4%, rgba(52, 211, 153, 0.12), transparent 60%),
+    radial-gradient(700px 380px at 0% 100%, rgba(217, 47, 61, 0.11), transparent 70%),
+    radial-gradient(700px 380px at 100% 100%, rgba(217, 47, 61, 0.11), transparent 70%);
 }
 
 :global(html.xmas-on canvas) {
-  filter: hue-rotate(105deg) saturate(0.8);
-}
-
-.forest {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 240' preserveAspectRatio='none'%3E%3Cpath fill='%230b2a1c' d='M0 240 L70 80 L140 240 Z M110 240 L200 30 L290 240 Z M260 240 L340 100 L420 240 Z M390 240 L480 50 L570 240 Z M540 240 L620 110 L700 240 Z M670 240 L760 40 L850 240 Z M820 240 L900 100 L980 240 Z M950 240 L1040 50 L1130 240 Z M1090 240 L1160 110 L1230 240 Z'/%3E%3C/svg%3E");
-  background-size: 100% 240px;
-  background-position: bottom;
-  background-repeat: no-repeat;
+  filter: hue-rotate(105deg) saturate(0.7);
   opacity: 0.6;
 }
 
+/* ---------- mist on the ground (where the old mountains were) ---------- */
+.mist {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 220px;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(60% 90% at 25% 100%, rgba(220, 235, 255, 0.07), transparent 70%),
+    radial-gradient(60% 90% at 75% 100%, rgba(220, 235, 255, 0.06), transparent 70%),
+    linear-gradient(0deg, rgba(230, 240, 255, 0.05), transparent);
+  animation: mistDrift 18s ease-in-out infinite alternate;
+}
+
+@keyframes mistDrift {
+  from { transform: translateX(-2%); }
+  to { transform: translateX(2%); }
+}
+
+/* ---------- snow with depth ---------- */
 .snow {
   position: fixed;
   inset: 0;
@@ -46,82 +56,173 @@
 
 .flake {
   position: absolute;
-  top: -6vh;
+  top: -8vh;
   border-radius: 50%;
-  background: #fff;
-  box-shadow: 0 0 6px rgba(255, 255, 255, 0.65);
   animation-name: snowfall;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
+  will-change: transform;
+}
+
+.far {
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.mid {
+  background: rgba(255, 255, 255, 0.75);
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.5);
+}
+
+/* near flakes: out of focus, like light on a lens */
+.near {
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.05) 70%, transparent);
+  filter: blur(2px);
 }
 
 @keyframes snowfall {
-  from { transform: translate3d(0, -6vh, 0); }
-  to { transform: translate3d(26px, 112vh, 0); }
+  0% { transform: translate3d(0, -8vh, 0); }
+  50% { transform: translate3d(var(--drift, 0px), 54vh, 0); }
+  100% { transform: translate3d(0, 112vh, 0); }
 }
 
-.stars {
-  position: fixed;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-}
-
-.star {
-  position: absolute;
-  border-radius: 50%;
-  background: #ffe9a8;
-  box-shadow: 0 0 9px 2px rgba(255, 220, 130, 0.5);
-  animation: twinkle 3.4s ease-in-out infinite;
-}
-
-@keyframes twinkle {
-  0%, 100% { opacity: 0.2; transform: scale(0.7); }
-  50% { opacity: 1; transform: scale(1.25); }
-}
-
+/* ---------- the gold sleigh ---------- */
 .santa {
   position: fixed;
-  top: 9%;
+  top: 12%;
   left: 0;
   z-index: 1;
   pointer-events: none;
-  animation: santaFly 30s linear infinite;
-  filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.38));
+  animation: santaFly 34s linear infinite;
+  filter: drop-shadow(0 0 18px rgba(232, 195, 90, 0.35));
 }
 
 @keyframes santaFly {
-  0%, 58% { transform: translate3d(-380px, 0, 0); opacity: 0; }
-  60% { opacity: 0.95; }
-  88% { opacity: 0.95; }
-  100% { transform: translate3d(calc(100vw + 380px), -70px, 0); opacity: 0; }
+  0%, 60% { transform: translate3d(-420px, 30px, 0); opacity: 0; }
+  62% { opacity: 0.9; }
+  90% { opacity: 0.9; }
+  100% { transform: translate3d(calc(100vw + 420px), -60px, 0); opacity: 0; }
 }
 
-.santaInner { animation: santaBob 1.6s ease-in-out infinite; }
+.santaInner {
+  animation: santaBob 1.8s ease-in-out infinite;
+}
 
 @keyframes santaBob {
-  0%, 100% { transform: translateY(0) rotate(-2deg); }
-  50% { transform: translateY(-9px) rotate(1deg); }
+  0%, 100% { transform: translateY(0) rotate(-3deg); }
+  50% { transform: translateY(-7px) rotate(-1deg); }
 }
 
-.garland {
+/* ---------- string of lights along the top ---------- */
+.lights {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  height: 10px;
   z-index: 2;
+  display: flex;
   pointer-events: none;
-  border-bottom: 1px solid rgba(232, 195, 90, 0.42);
-  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.28);
-  background-image:
-    radial-gradient(circle at 12px 6px, #d92f3d 0 3px, transparent 3.5px),
-    radial-gradient(circle at 44px 8px, #e8c35a 0 2.5px, transparent 3px),
-    radial-gradient(circle at 76px 5px, #d92f3d 0 2.5px, transparent 3px),
-    linear-gradient(180deg, #124733 0%, #1a5a41 58%, #0a2c21 100%);
-  background-size: 100px 12px, 100px 12px, 100px 12px, 100% 100%;
 }
 
+.swag {
+  position: relative;
+  flex: 1;
+  height: 20px;
+  border-bottom: 1.5px solid rgba(255, 255, 255, 0.16);
+  border-radius: 0 0 50% 50% / 0 0 100% 100%;
+}
+
+.bulb {
+  position: absolute;
+  left: 50%;
+  bottom: -9px;
+  width: 7px;
+  height: 11px;
+  margin-left: -3.5px;
+  border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+  background: var(--bulb);
+  box-shadow: 0 0 6px 1px var(--bulb), 0 0 18px 4px color-mix(in oklab, var(--bulb) 45%, transparent);
+  animation: bulbGlow 3s ease-in-out infinite;
+}
+
+.bulb::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: 1.5px;
+  width: 4px;
+  height: 4px;
+  border-radius: 1px;
+  background: #3a3f47;
+}
+
+@keyframes bulbGlow {
+  0%, 100% { opacity: 1; filter: brightness(1.1); }
+  50% { opacity: 0.45; filter: brightness(0.7); }
+}
+
+/* ---------- glass baubles in the top corners ---------- */
+.baubles {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 0; /* behind the header, so they never cover the logo or the menu */
+  pointer-events: none;
+}
+
+.bauble {
+  position: absolute;
+  top: 0;
+  width: var(--size);
+  height: calc(var(--len) + var(--size));
+  transform-origin: 50% 0;
+  animation: baubleSwing 6s ease-in-out infinite;
+}
+
+/* the thread */
+.bauble::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 1px;
+  height: var(--len);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.35));
+}
+
+/* the cap */
+.bauble::after {
+  content: '';
+  position: absolute;
+  top: calc(var(--len) - 3px);
+  left: 50%;
+  width: calc(var(--size) * 0.28);
+  height: 5px;
+  transform: translateX(-50%);
+  border-radius: 2px;
+  background: linear-gradient(180deg, #e9edf2, #8b929c);
+}
+
+/* the glass ball */
+.bauble i {
+  position: absolute;
+  top: calc(var(--len) + 1px);
+  left: 0;
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 30%, rgba(255, 255, 255, 0.95) 0 6%, var(--c1) 22%, var(--c2) 70%, var(--c3) 100%);
+  box-shadow: 0 10px 24px -8px var(--c2), inset -3px -4px 8px rgba(0, 0, 0, 0.35);
+}
+
+.gold { --c1: #ffe7a3; --c2: #e0b445; --c3: #7c5813; }
+.red { --c1: #ff9aa6; --c2: #d8283f; --c3: #5c0d18; }
+.green { --c1: #a8f5d2; --c2: #1f9e6e; --c3: #0b3b29; }
+
+@keyframes baubleSwing {
+  0%, 100% { transform: rotate(-4deg); }
+  50% { transform: rotate(4deg); }
+}
+
+/* ---------- the "Feliz Natal" seal ---------- */
 .seal {
   position: fixed;
   left: 16px;
@@ -129,55 +230,89 @@
   z-index: 2;
   display: flex;
   align-items: center;
-  gap: 9px;
-  padding: 8px 16px 8px 10px;
+  gap: 10px;
+  padding: 8px 16px 8px 9px;
   border-radius: 999px;
-  background: rgba(9, 38, 28, 0.9);
-  border: 1px solid rgba(232, 195, 90, 0.5);
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.34);
-  color: #f3e6c8;
+  background: rgba(12, 14, 16, 0.7);
+  border: 1px solid rgba(232, 195, 90, 0.3);
+  box-shadow: 0 16px 40px -16px rgba(0, 0, 0, 0.85), 0 0 30px -12px rgba(232, 195, 90, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  color: var(--ink);
   pointer-events: none;
   font-family: var(--font-body);
 }
 
-.seal::after {
-  content: '';
-  position: absolute;
-  right: 12px;
-  top: -5px;
-  width: 10px;
-  height: 10px;
-  background: #d92f3d;
-  transform: rotate(45deg);
-  border: 1px solid rgba(255, 255, 255, 0.35);
+.ornament {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(232, 195, 90, 0.12);
+  box-shadow: inset 0 0 0 1px rgba(232, 195, 90, 0.25);
+  transform-origin: 50% 20%;
+  animation: ornamentSwing 5s ease-in-out infinite;
 }
 
-.bell {
+@keyframes ornamentSwing {
+  0%, 100% { transform: rotate(-6deg); }
+  50% { transform: rotate(6deg); }
+}
+
+.sealText {
   display: flex;
-  color: #e8c35a;
-  transform-origin: 50% 10%;
-  animation: bellSwing 7s ease-in-out infinite;
+  flex-direction: column;
+  line-height: 1.2;
 }
-
-@keyframes bellSwing {
-  0%, 80%, 100% { transform: rotate(0deg); }
-  84% { transform: rotate(13deg); }
-  88% { transform: rotate(-10deg); }
-  92% { transform: rotate(6deg); }
-  96% { transform: rotate(-3deg); }
-}
-
-.sealText { display: flex; flex-direction: column; line-height: 1.25; }
 
 .sealTitle {
-  font-family: var(--font-display);
   font-size: 13px;
-  letter-spacing: 0.02em;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  background: linear-gradient(90deg, #fff1c2, #e8c35a);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .sealSub {
-  font-size: 9px;
-  letter-spacing: 0.09em;
-  color: rgba(243, 230, 200, 0.72);
-  text-transform: uppercase;
+  font-size: 10.5px;
+  font-weight: 500;
+  color: var(--ink-3);
+}
+
+@media (max-width: 768px) {
+  /* on a phone the edges are where the text is: no baubles */
+  .baubles {
+    display: none;
+  }
+
+  .santa {
+    top: 18%;
+    transform-origin: left center;
+  }
+
+  .santa svg {
+    width: 240px;
+    height: 64px;
+  }
+
+  .swag:nth-child(n + 11) {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flake,
+  .santa,
+  .bauble,
+  .ornament,
+  .mist {
+    animation: none;
+  }
+
+  .santa {
+    display: none;
+  }
 }

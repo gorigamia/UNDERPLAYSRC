@@ -5,7 +5,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #06172e;
+  background: var(--bg);
   transition: opacity 0.55s ease, visibility 0.55s ease;
   opacity: 1;
   visibility: visible;
@@ -26,7 +26,7 @@
     ellipse at center,
     transparent 0%,
     transparent 55%,
-    rgba(2, 14, 28, 0.55) 100%
+    rgba(11, 12, 16, 0.55) 100%
   );
   pointer-events: none;
 }
@@ -68,31 +68,31 @@
 .bar {
   width: 10px;
   border-radius: 1px;
-  background: rgba(181, 212, 244, 0.35);
+  background: rgba(255, 255, 255, 0.35);
   transform: skewX(-18deg);
   transition: none;
 }
 
 .bar:nth-child(even) {
-  background: rgba(181, 212, 244, 0.22);
+  background: rgba(255, 255, 255, 0.22);
 }
 
 .barLocked {
   transition: height 0.6s cubic-bezier(0.16, 1, 0.3, 1),
     background 0.6s ease, box-shadow 0.6s ease;
   background: var(--blue-vivid);
-  box-shadow: 0 0 14px rgba(55, 138, 221, 0.55);
+  box-shadow: 0 0 14px color-mix(in oklab, var(--theme-accent) 55%, transparent);
 }
 
 .barLocked:nth-child(even) {
   background: var(--blue-pale);
-  box-shadow: 0 0 14px rgba(230, 241, 251, 0.4);
+  box-shadow: 0 0 14px rgba(255, 255, 255, 0.4);
 }
 
 .baseline {
   width: 130px;
   height: 1px;
-  background: rgba(181, 212, 244, 0.18);
+  background: rgba(255, 255, 255, 0.18);
   margin-top: -14px;
 }
 
@@ -196,7 +196,7 @@
   transform: translateY(20px);
   transition: opacity 0.5s ease 0.5s, transform 0.5s ease 0.5s, background 0.2s, box-shadow 0.2s;
   pointer-events: none;
-  box-shadow: 0 8px 24px rgba(4, 44, 83, 0.4);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 }
 
 .enterBtn.btnVisible {
@@ -208,10 +208,10 @@
 .enterBtn:hover {
   background: var(--blue-mid);
   transform: translateY(-2px);
-  box-shadow: 0 12px 28px rgba(4, 44, 83, 0.5);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
 }
 
 .enterBtn:active {
   transform: translateY(0);
-  box-shadow: 0 4px 12px rgba(4, 44, 83, 0.4);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }

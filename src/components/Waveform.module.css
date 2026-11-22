@@ -13,7 +13,7 @@
   width: 3px;
   height: 36px;
   border-radius: 2px;
-  background: var(--blue-mid);
+  background: linear-gradient(180deg, var(--theme-accent), var(--accent-2));
   opacity: 0.55;
   flex-shrink: 0;
   transform-origin: bottom;

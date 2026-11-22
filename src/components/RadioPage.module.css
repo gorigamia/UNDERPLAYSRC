@@ -10,10 +10,13 @@
 .tabBar {
   display: flex;
   gap: 8px;
-  background: rgba(0, 0, 0, 0.4);
-  padding: 6px;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(18, 20, 26, 0.6);
+  padding: 5px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  box-shadow: var(--highlight);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   margin-bottom: 12px;
 }
 
@@ -25,10 +28,10 @@
   justify-content: center;
   gap: 8px;
   padding: 10px 16px;
-  border-radius: 8px;
+  border-radius: 999px;
   background: transparent;
-  border: none;
-  color: rgba(255, 255, 255, 0.65);
+  border: 1px solid transparent;
+  color: var(--ink-2);
   font-size: 0.88rem;
   font-weight: 700;
   cursor: pointer;
@@ -41,10 +44,10 @@
 }
 
 .activeTab {
-  color: var(--blue-deep);
-  background: linear-gradient(135deg, var(--theme-accent-soft) 0%, var(--theme-surface) 100%);
-  border: 1px solid var(--theme-border);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  color: var(--ink);
+  background: var(--glass-3);
+  border-color: var(--line-2);
+  box-shadow: 0 0 24px -8px var(--accent-glow);
 }
 
 .activeTab svg {

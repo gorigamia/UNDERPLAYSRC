@@ -7,25 +7,78 @@
   text-rendering: optimizeLegibility;
 }
 
+/* ==========================================================================
+   Design system
+   One dark base for every theme; a theme only changes the accent pair, which
+   colours the glow behind the page, the gradients, the links and the dots.
+   ========================================================================== */
 :root {
-  --blue-deep:  #042C53;
-  --blue-dark:  #0C447C;
-  --blue-mid:   #185FA5;
-  --blue-vivid: #378ADD;
-  --blue-light: #B5D4F4;
-  --blue-pale:  #E6F1FB;
-  --bg:         #cfe0f2;
-  --theme-surface: rgba(8, 24, 46, 0.75);
-  --theme-surface-deep: rgba(4, 16, 32, 0.88);
-  --theme-border: rgba(255, 255, 255, 0.12);
-  --theme-accent: #38bdf8;
-  --theme-accent-soft: rgba(56, 189, 248, 0.2);
-  --theme-muted: rgba(255, 255, 255, 0.75);
-  --theme-on-accent: #ffffff;
+  /* base */
+  --bg: #0b0c10;
+  --bg-raised: #12141a;
+  --ink: #f5f6f8;
+  --ink-2: rgba(245, 246, 248, 0.68);
+  --ink-3: rgba(245, 246, 248, 0.44);
+  --glass: rgba(255, 255, 255, 0.045);
+  --glass-2: rgba(255, 255, 255, 0.075);
+  --glass-3: rgba(255, 255, 255, 0.11);
+  --line: rgba(255, 255, 255, 0.085);
+  --line-2: rgba(255, 255, 255, 0.16);
+  --code-bg: rgba(0, 0, 0, 0.32);
 
-  --font-display: 'Playfair Display', Georgia, serif;
-  --font-body:    'DM Sans', system-ui, sans-serif;
+  /* accent pair (set per theme below) */
+  --theme-accent: #38bdf8;
+  --accent-2: #8b5cf6;
+  --theme-on-accent: #0b0c10;
+
+  /* shape */
+  --r-xl: 28px;
+  --r-lg: 22px;
+  --r-md: 16px;
+  --r-sm: 12px;
+  --shadow: 0 24px 60px -28px rgba(0, 0, 0, 0.8);
+  --shadow-sm: 0 10px 30px -16px rgba(0, 0, 0, 0.7);
+  --highlight: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  /* type */
+  --font-display: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Code', Consolas, monospace;
+
+  color-scheme: dark;
 }
+
+/* everything built from the accent lives on body, where the theme class is,
+   so it is worked out from that theme's colours (a custom property is resolved
+   where it is declared) */
+body {
+  --grad: linear-gradient(135deg, var(--theme-accent) 0%, var(--accent-2) 100%);
+  --theme-accent-soft: color-mix(in oklab, var(--theme-accent) 16%, transparent);
+  --accent-glow: color-mix(in oklab, var(--theme-accent) 45%, transparent);
+
+  /* names the components already use, mapped onto the system */
+  --blue-deep: var(--ink);
+  --blue-mid: var(--ink-2);
+  --blue-vivid: var(--theme-accent);
+  --blue-light: var(--line-2);
+  --blue-pale: var(--bg);
+  --blue-dark: var(--bg-raised);
+  --theme-surface: rgba(18, 20, 26, 0.72);
+  --theme-surface-deep: rgba(12, 13, 17, 0.88);
+  --theme-border: var(--line);
+  --theme-muted: var(--ink-2);
+}
+
+/* the accent pairs: same dark page, a different light */
+body.theme-blue      { --theme-accent: #38bdf8; --accent-2: #8b5cf6; }
+body.theme-night     { --theme-accent: #818cf8; --accent-2: #38bdf8; }
+body.theme-morning   { --theme-accent: #22d3ee; --accent-2: #a78bfa; }
+body.theme-afternoon { --theme-accent: #fbbf24; --accent-2: #f43f5e; }
+body.theme-green     { --theme-accent: #c4f18e; --accent-2: #34d399; } /* the logo's lime */
+body.theme-red       { --theme-accent: #f43f5e; --accent-2: #f751a1; }
+body.theme-pink      { --theme-accent: #f751a1; --accent-2: #8b5cf6; }
+body.theme-orange    { --theme-accent: #fb923c; --accent-2: #f43f5e; }
 
 html, body, #root {
   min-height: 100vh;
@@ -33,19 +86,51 @@ html, body, #root {
   padding: 0;
 }
 
+html {
+  background: var(--bg);
+  scrollbar-color: rgba(255, 255, 255, 0.16) transparent;
+}
+
 body {
   font-family: var(--font-body);
-  background-color: var(--bg);
-  background-attachment: fixed;
-  background-size: cover;
-  background-repeat: no-repeat;
-  color: var(--blue-deep);
+  font-feature-settings: 'cv11', 'ss01';
+  background: var(--bg);
+  color: var(--ink);
   overflow-x: hidden;
-  transition: background-color 0.4s ease-out;
+  position: relative;
+}
+
+/* the light behind the page: the theme's two colours, very soft, fixed while scrolling */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(900px 520px at 12% -8%, color-mix(in oklab, var(--theme-accent) 22%, transparent), transparent 62%),
+    radial-gradient(760px 520px at 92% 8%, color-mix(in oklab, var(--accent-2) 18%, transparent), transparent 60%),
+    radial-gradient(1100px 600px at 50% 112%, color-mix(in oklab, var(--theme-accent) 10%, transparent), transparent 70%);
+  transition: background 0.6s ease;
+}
+
+/* fine grain over the light, so the gradients never band */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+#root {
+  position: relative;
+  z-index: 1;
 }
 
 body.page-transitioning {
-  background-color: #06172e !important;
   transition: none;
 }
 
@@ -54,114 +139,37 @@ button {
   background: none;
   border: none;
   font-family: inherit;
+  color: inherit;
 }
 
-body.theme-morning {
-  background-color: #e8f4fa;
-  --blue-pale: #ffffff;
-  --blue-light: #c6e0f7;
-  --blue-deep: #042C53;
-  --blue-mid: #185FA5;
+a {
+  color: inherit;
 }
 
-body.theme-afternoon {
-  background-color: #d0e3f5;
-  --blue-pale: #e6f1fb;
-  --blue-light: #b5d4f4;
-  --blue-deep: #042C53;
-  --blue-mid: #185FA5;
+::selection {
+  background: color-mix(in oklab, var(--theme-accent) 40%, transparent);
+  color: #fff;
 }
 
-body.theme-night {
-  background-color: #06172e;
-  --blue-pale: #081f3b;
-  --blue-light: #0a2a52;
-  --blue-deep: #ffffff;
-  --blue-mid: #8db8e5;
-  --theme-surface: rgba(8, 31, 59, 0.82);
-  --theme-surface-deep: rgba(6, 23, 46, 0.94);
-  --theme-border: rgba(141, 184, 229, 0.2);
-  --theme-accent: #8db8e5;
-  --theme-accent-soft: rgba(141, 184, 229, 0.2);
-  --theme-muted: rgba(241, 248, 255, 0.72);
+:focus-visible {
+  outline: 2px solid var(--theme-accent);
+  outline-offset: 3px;
+  border-radius: 6px;
 }
 
-body.theme-blue {
-  background-color: #071d35;
-  --blue-pale: #0d3154;
-  --blue-light: #2f78b5;
-  --blue-deep: #f1f8ff;
-  --blue-mid: #7db0dc;
-  --blue-dark: #174f7d;
-  --blue-vivid: #5ca9e6;
-  --theme-surface: rgba(13, 49, 84, 0.82);
-  --theme-surface-deep: rgba(7, 29, 53, 0.94);
-  --theme-border: rgba(125, 176, 220, 0.24);
-  --theme-accent: #7db0dc;
-  --theme-accent-soft: rgba(92, 169, 230, 0.2);
-  --theme-muted: rgba(241, 248, 255, 0.72);
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.14); border-radius: 999px; border: 3px solid transparent; background-clip: padding-box; }
+::-webkit-scrollbar-thumb:hover { background-color: rgba(255, 255, 255, 0.24); }
+::-webkit-scrollbar-track { background: transparent; }
+
+code, pre, kbd {
+  font-family: var(--font-mono);
 }
 
-body.theme-green {
-  background-color: #0c1f15;
-  --blue-pale: #153b25;
-  --blue-light: #4f9b59;
-  --blue-deep: #f2ffe9;
-  --blue-mid: #b9ed7c;
-  --blue-dark: #2b713d;
-  --blue-vivid: #a9e866;
-  --theme-surface: rgba(21, 59, 37, 0.84);
-  --theme-surface-deep: rgba(12, 31, 21, 0.94);
-  --theme-border: rgba(185, 237, 124, 0.24);
-  --theme-accent: #b9ed7c;
-  --theme-accent-soft: rgba(169, 232, 102, 0.2);
-  --theme-muted: rgba(242, 255, 233, 0.72);
-}
-
-body.theme-red {
-  background-color: #260b0b;
-  --blue-pale: #491313;
-  --blue-light: #8f2929;
-  --blue-deep: #fff3f1;
-  --blue-mid: #ff8a80;
-  --blue-dark: #8f1d1d;
-  --blue-vivid: #ef4444;
-  --theme-surface: rgba(73, 19, 19, 0.84);
-  --theme-surface-deep: rgba(38, 11, 11, 0.94);
-  --theme-border: rgba(255, 138, 128, 0.24);
-  --theme-accent: #ff8a80;
-  --theme-accent-soft: rgba(239, 68, 68, 0.2);
-  --theme-muted: rgba(255, 243, 241, 0.72);
-}
-
-body.theme-pink {
-  background-color: #2b1021;
-  --blue-pale: #501d3b;
-  --blue-light: #a14c7d;
-  --blue-deep: #fff1f8;
-  --blue-mid: #e59bc2;
-  --blue-dark: #8e3568;
-  --blue-vivid: #e276b2;
-  --theme-surface: rgba(80, 29, 59, 0.84);
-  --theme-surface-deep: rgba(43, 16, 33, 0.94);
-  --theme-border: rgba(229, 155, 194, 0.24);
-  --theme-accent: #e59bc2;
-  --theme-accent-soft: rgba(226, 118, 178, 0.2);
-  --theme-muted: rgba(255, 241, 248, 0.72);
-}
-
-body.theme-orange {
-  background-color: #241109;
-  --blue-pale: #3a1b0d;
-  --blue-light: #8f4520;
-  --blue-deep: #fff4e8;
-  --blue-mid: #f0a06a;
-  --blue-dark: #7d3518;
-  --blue-vivid: #e8752f;
-  --theme-surface: rgba(58, 27, 13, 0.84);
-  --theme-surface-deep: rgba(36, 17, 9, 0.94);
-  --theme-border: rgba(240, 160, 106, 0.24);
-  --theme-accent: #f0a06a;
-  --theme-accent-soft: rgba(232, 117, 47, 0.2);
-  --theme-muted: rgba(255, 244, 232, 0.72);
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

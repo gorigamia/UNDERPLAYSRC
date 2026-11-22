@@ -32,8 +32,8 @@ function PageTransition() {
 }
 
 export default function App() {
-  const [manualTheme, setManualTheme] = useState('blue');
-  const [currentThemeStr, setCurrentThemeStr] = useState('blue');
+  const [manualTheme, setManualTheme] = useState('green');
+  const [currentThemeStr, setCurrentThemeStr] = useState('green');
 
   useEffect(() => {
     if (IS_MAINTENANCE_MODE) return;

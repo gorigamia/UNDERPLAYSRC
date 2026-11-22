@@ -3,8 +3,8 @@
   "short_name": "Underplay",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0a1e37",
-  "theme_color": "#0284c7",
+  "background_color": "#0b0c10",
+  "theme_color": "#0b0c10",
   "icons": [
     {
       "src": "/icon-192.png",

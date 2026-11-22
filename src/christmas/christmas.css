@@ -1,33 +1,8 @@
+/* Christmas: the theme picker hides (the season sets the colours), and a few
+   controls that are not built on the accent tokens get the gold / pine pair. */
 html.xmas-on [class*="themeToggle"] { display: none !important; }
 
-html.xmas-on [class*="avatarSelect"] option { background: #0d2a1e !important; }
-html.xmas-on [class*="nameBtn"] { background: #1c6b45 !important; }
-html.xmas-on [class*="nameBtn"]:hover { background: #164f36 !important; }
-html.xmas-on [class*="msgUser"] { color: #b9ed7c !important; }
+html.xmas-on [class*="avatarSelect"] option { background: #0e1310 !important; }
+html.xmas-on [class*="msgUser"] { color: #8fe3bd !important; }
 html.xmas-on [class*="mine"] [class*="msgUser"] { color: #e8c35a !important; }
-html.xmas-on [class*="mine"] [class*="msgBubble"] { background: #1c6b45 !important; }
-html.xmas-on [class*="input"]:focus { border-bottom-color: #e8c35a !important; }
-html.xmas-on [class*="sendBtn"] { background: #1c6b45 !important; }
-html.xmas-on [class*="sendBtn"]:hover:not(:disabled) { background: #164f36 !important; }
-
-html.xmas-on [class*="actionBtn"] { background: rgba(40, 140, 90, 0.25) !important; border-color: rgba(232, 195, 90, 0.45) !important; }
-html.xmas-on [class*="actionBtn"]:hover { background: #1c6b45 !important; border-color: #e8c35a !important; }
-html.xmas-on [class*="ets2Card"] { border-color: rgba(232, 195, 90, 0.25) !important; }
-html.xmas-on [class*="badge"] { background: rgba(40, 140, 90, 0.18) !important; border-color: rgba(232, 195, 90, 0.35) !important; }
-html.xmas-on [class*="ctaBtn"], html.xmas-on [class*="primaryBtn"] { background: #1c6b45 !important; border-color: #e8c35a !important; }
-html.xmas-on [class*="ctaBtn"]:hover, html.xmas-on [class*="primaryBtn"]:hover { background: #164f36 !important; }
-html.xmas-on [class*="highlight"], html.xmas-on [class*="accentText"] { color: #e8c35a !important; }
-html.xmas-on [class*="subtleText"] { color: #b9ed7c !important; }
-
-html.xmas-on [class*="songCard"]:hover { border-color: rgba(232, 195, 90, 0.35) !important; }
 html.xmas-on [class*="songAlbum"] { color: rgba(232, 195, 90, 0.85) !important; }
-html.xmas-on [class*="requestBtn"] { background: linear-gradient(135deg, #1c6b45 0%, #164f36 100%) !important; box-shadow: 0 2px 8px rgba(20, 90, 55, 0.35) !important; }
-html.xmas-on [class*="requestBtn"]:hover:not(:disabled) { background: linear-gradient(135deg, #2f8a5c 0%, #1c6b45 100%) !important; box-shadow: 0 4px 12px rgba(40, 140, 90, 0.4) !important; }
-html.xmas-on [class*="spinner"] { border-top-color: #e8c35a !important; }
-
-html.xmas-on [class*="CoverArt_"] [class*="glow"],
-html.xmas-on [class*="Schedule_"] [class*="card"],
-html.xmas-on [class*="PlayerControls_"] button { box-shadow: 0 6px 20px rgba(3, 26, 17, 0.42) !important; }
-
-html.xmas-on [class*="IntroScreen_"] [class*="bar"] { background: rgba(160, 215, 180, 0.3) !important; }
-html.xmas-on [class*="IntroScreen_"] [class*="glow"] { box-shadow: 0 0 14px rgba(120, 200, 140, 0.5) !important; }

@@ -4,172 +4,181 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 24px 48px 18px;
+  gap: 24px;
+  max-width: 1240px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 22px 32px 14px;
 }
 
 .logoWrapper {
-  animation: logoEnter 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  animation: logoEnter 0.9s var(--ease) both;
 }
 
 .logoContainer {
   display: flex;
   align-items: flex-end;
-  animation: floatLogo 4s ease-in-out infinite;
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
-  transition: filter 0.3s ease;
+  filter: drop-shadow(0 6px 18px color-mix(in oklab, var(--theme-accent) 25%, transparent));
+  transition: filter 0.3s ease, transform 0.3s var(--ease);
   cursor: pointer;
   position: relative;
 }
 
 .logoContainer:hover {
-  filter: drop-shadow(0 8px 16px rgba(255, 255, 255, 0.2));
+  transform: translateY(-1px);
+  filter: drop-shadow(0 8px 26px color-mix(in oklab, var(--theme-accent) 45%, transparent));
 }
 
 .logoImg {
-  height: 56px;
+  height: 52px;
   width: auto;
   display: block;
 }
 
 .shine {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    110deg,
-    transparent 0%,
-    transparent 40%,
-    rgba(255, 255, 255, 0.8) 50%,
-    transparent 60%,
-    transparent 100%
-  );
+  inset: 0;
+  background: linear-gradient(110deg, transparent 0%, transparent 42%, rgba(255, 255, 255, 0.7) 50%, transparent 58%, transparent 100%);
   background-size: 250% 100%;
-  animation: sweepShine 4s infinite linear;
+  animation: sweepShine 6s infinite linear;
   pointer-events: none;
   -webkit-mask-image: url('../logo/logo.png');
   -webkit-mask-size: contain;
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: left center;
+  mask-image: url('../logo/logo.png');
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: left center;
 }
 
 @keyframes sweepShine {
   0% { background-position: 200% center; }
-  25% { background-position: -50% center; }
+  20% { background-position: -50% center; }
   100% { background-position: -50% center; }
 }
 
 @keyframes logoEnter {
-  0% {
-    opacity: 0;
-    transform: translateY(-40px) scale(0.8);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+  0% { opacity: 0; transform: translateY(-12px); filter: blur(6px); }
+  100% { opacity: 1; transform: none; filter: none; }
 }
 
-@keyframes floatLogo {
-  0%, 100% {
-    transform: translateY(0) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-4px) rotate(1deg);
-  }
-}
-
-.link {
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--blue-deep);
-  text-decoration: none;
-  padding-bottom: 3px;
-  border-bottom: 1.5px solid transparent;
-  transition: border-color 0.2s;
-}
-
-.active {
-  font-weight: 700;
-  border-bottom-color: var(--blue-deep);
-}
-
-.tagline {
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.25em;
-  color: var(--blue-mid);
-  text-transform: uppercase;
-  text-align: center;
-}
-
+/* the navigation: one glass pill, the current page lit inside it */
 .navRight {
   display: flex;
   align-items: center;
-  gap: 20px;
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--blue-deep);
+  gap: 4px;
+  padding: 5px;
+  border-radius: 999px;
+  background: rgba(18, 20, 26, 0.6);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-sm), var(--highlight);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-2);
+}
+
+.link {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0;
+  color: var(--ink-2);
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 999px;
+  transition: color 0.2s, background 0.2s;
+}
+
+.link:hover {
+  color: var(--ink);
+  background: var(--glass-2);
+}
+
+.active {
+  color: var(--ink);
+  background: var(--glass-3);
+  box-shadow: inset 0 0 0 1px var(--line-2), 0 0 24px -8px var(--accent-glow);
+}
+
+.tagline {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-3);
+  text-align: center;
 }
 
 .socialLink {
-  color: var(--blue-deep);
+  color: var(--ink-2);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: color 0.2s, transform 0.2s;
-  padding: 4px;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  transition: color 0.2s, background 0.2s, transform 0.2s var(--ease);
+}
+
+.socialLink:first-of-type {
+  margin-left: 6px;
 }
 
 .socialLink:hover {
-  color: var(--blue-mid);
-  transform: scale(1.1);
+  color: var(--ink);
+  background: var(--glass-2);
+  transform: translateY(-1px);
+}
+
+.socialLink svg {
+  width: 18px;
+  height: 18px;
 }
 
 .themeToggle {
-  background: var(--blue-pale);
-  color: var(--blue-deep);
-  border: 1px solid var(--blue-light);
-  border-radius: 20px;
-  padding: 4px 10px;
-  font-size: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--grad);
+  color: var(--theme-on-accent);
+  border: 0;
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 12px;
   font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  letter-spacing: 0;
   cursor: pointer;
-  transition: background 0.2s, transform 0.1s;
+  transition: filter 0.2s, transform 0.15s;
 }
 
 .themeToggle:hover {
-  background: var(--blue-light);
+  filter: brightness(1.1);
 }
 
 .themeToggle:active {
-  transform: scale(0.95);
+  transform: scale(0.96);
 }
 
 .leftGroup {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 4px;
+  gap: 6px;
 }
 
-.weather {
+.weather,
+.weatherAnim {
   font-family: var(--font-body);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  color: var(--blue-mid);
-  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-2);
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
+}
+
+.weatherAnim {
+  animation: slideFade 0.4s var(--ease) both;
 }
 
 .weatherBox {
@@ -184,47 +193,29 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 8px;
 }
 
 .season,
 .clock {
   font-family: var(--font-body);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: var(--blue-mid);
-  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ink-2);
   white-space: nowrap;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--glass);
+  border: 1px solid var(--line);
 }
 
 .clock {
   font-variant-numeric: tabular-nums;
-  letter-spacing: 0.04em;
-}
-
-.weatherAnim {
-  font-family: var(--font-body);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  color: var(--blue-mid);
-  text-transform: uppercase;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  animation: slideFade 0.4s ease-out forwards;
 }
 
 @keyframes slideFade {
-  0% {
-    opacity: 0;
-    transform: translateX(15px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  0% { opacity: 0; transform: translateX(10px); }
+  100% { opacity: 1; transform: none; }
 }
 
 @media (max-width: 768px) {
@@ -233,11 +224,11 @@
   }
 
   .logoImg {
-    height: 44px;
+    height: 42px;
   }
 
-  .navRight {
-    gap: 14px;
+  .link {
+    padding: 7px 12px;
   }
 
   .tagline {
@@ -245,43 +236,39 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 560px) {
   .header {
     padding: 12px 14px 10px;
     flex-wrap: wrap;
-    gap: 14px;
+    gap: 12px;
   }
 
   .logoImg {
-    height: 38px;
+    height: 36px;
   }
 
   .navRight {
     width: 100%;
-    flex-wrap: wrap;
     justify-content: center;
-    gap: 10px;
-    letter-spacing: 0.1em;
+    flex-wrap: wrap;
   }
 
   .link {
-    font-size: 10px;
-    letter-spacing: 0.1em;
+    font-size: 12px;
+    padding: 7px 11px;
   }
 
-  .themeToggle {
-    padding: 3px 8px;
-    font-size: 9px;
+  .socialLink {
+    width: 32px;
+    height: 32px;
+  }
+
+  .socialLink:first-of-type {
+    margin-left: 0;
   }
 
   .socialLink svg {
-    width: 17px;
-    height: 17px;
-  }
-
-  .link, .socialLink, .themeToggle {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    width: 16px;
+    height: 16px;
   }
 }
